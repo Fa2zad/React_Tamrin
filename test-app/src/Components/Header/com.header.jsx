@@ -7,7 +7,7 @@ class Header extends React.Component {
     render() {
         return (
             <header className="App-header">
-                <h1 className="App-title">{this.props.title}</h1>
+                <h1 className="App-title">{window.headTitle}</h1>
                 <div>
                     <Link to="/" >Home</Link>&nbsp;
                     <Link to="/Contact" >Contact</Link>&nbsp;

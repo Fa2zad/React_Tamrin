@@ -37,6 +37,11 @@ class Contact extends React.Component {
     }
 
     componentWillMount() {
+    }
+
+    constructor(props) {
+        super(props);
+        window.headTitle = "Contact";
         document.title = "Contact";
     }
 
