@@ -1,7 +1,6 @@
 import React from "react";
 import "./style.contacts.css";
 
-import Header from "../Header/com.header.jsx"
 
 class Contact extends React.Component {
 
@@ -34,28 +33,27 @@ class Contact extends React.Component {
             + "&subject=" + contact.subject 
             + "&text=" + contact.text
         ); 
-
+        
     }
-    
+
+    componentWillMount() {
+        document.title = "Contact";
+    }
 
     render() {
         return (
             <div>
-                <Header title="تماس با ما"/>
 
                 <form onSubmit={this.handleSubmit}>
                     <div>
                         <input onChange={this.handleChange} id="txtName" type="text" placeholder="نام و نام خانوادگی" />
                     </div>
-                    <br />
                     <div>
                         <input id="txtEmail" type="text" placeholder="آدرس ایمیل" />
                     </div>
-                    <br />
                     <div>
                         <input id="txtSubject" type="text" placeholder="موضوع" />
                     </div>
-                    <br />
                     <div>
                         <textarea id="txtText" placeholder="متن پیام" />
                     </div>
