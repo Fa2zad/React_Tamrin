@@ -5,7 +5,7 @@ class Home extends React.Component {
     
     constructor(props) {
         super(props);
-        window.headTitle = "Home";
+        // window.headTitle = "Home";
         document.title = "Home";
 
     }

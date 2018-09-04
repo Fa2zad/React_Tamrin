@@ -10,28 +10,26 @@ import NotFound from "./Components/NotFound/com.notfound.jsx";
 
 class App extends Component {
 
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     listDataFromChild: null
-  //   };    
-  // }
+  constructor(props) {
+    super(props);
+    this.state = {
+        title: "App Title"
+    }
+  }
   
-  state = {
-    title: "Home"
+
+  onHeaderClick = () => {
+    alert("click");
   }
-  compponentWillMount () {
-    this.setState({
-      title: this.props.callbackFromParent()
-    });
-  }
+
+
   render() {
     return (
       <Router>
           <div className="App">
-            <Header title={this.state.title} />
-            <Switch>
-              <Route exact path="/" component={Home} />
+            <Header title={this.state.title} onHeaderClick={this.onHeaderClick}/>
+              <Switch>
+              <Route exact path="/" component={Home}  />
               <Route path="/Contact" component={Contact} />
               <Route path="/About" component={About} />
               <Route component={NotFound} />

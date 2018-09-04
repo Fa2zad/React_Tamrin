@@ -1,11 +1,11 @@
 import React from "react";
 import "./style.about.css";
 
-class NotFound extends React.Component {
+class About extends React.Component {
     constructor(props) {
         super(props);
         document.title = "About";
-        window.headTitle = "About";
+        // window.headTitle = "About";
 
     }
 
@@ -16,4 +16,4 @@ class NotFound extends React.Component {
     }
 }
 
-export default NotFound
+export default About
