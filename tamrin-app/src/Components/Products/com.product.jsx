@@ -1,21 +1,20 @@
 import React from "react";
-import "./style.contacts.css";
+import "./style.products.css";
 
 
-class Contact extends React.Component {
+class Product extends React.Component {
 
     handleSubmit = event => {
         event.preventDefault();
 
-        const contact = {
+        const product = {
             name: document.getElementById("txtName").value,
-            email: document.getElementById("txtEmail").value,
-            subject: document.getElementById("txtSubject").value,
-            text: document.getElementById("txtText").value
+            price: document.getElementById("txtPrice").value,
+            description: document.getElementById("txtDescription").value,
         };
 
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", 'http://localhost:58731/Contact.ashx', true);
+        xhr.open("POST", 'http://localhost:58731/Product.ashx', true);
 
         //Send the proper header information along with the request
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -28,10 +27,9 @@ class Contact extends React.Component {
             }
         }
         xhr.send(
-            "action=add&name=" + contact.name 
-            + "&email=" + contact.email 
-            + "&subject=" + contact.subject 
-            + "&text=" + contact.text
+            "action=add&name=" + product.name 
+            + "&price=" + product.price 
+            + "&description=" + product.description
         ); 
         
     }
@@ -40,9 +38,8 @@ class Contact extends React.Component {
 
     constructor(props) {
         super(props);
-        document.title = "Contact";
+        document.title = "افزدون محصول جدید";
     }
-
 
 
     render() {
@@ -50,20 +47,19 @@ class Contact extends React.Component {
             <div>
 
                 <form onSubmit={this.handleSubmit}>
-                    <div>
-                        <input onChange={this.handleChange} id="txtName" type="text" placeholder="نام و نام خانوادگی" />
+                   
+                    <div className="form-group">
+                        <input className="form-control" id="txtName" type="text" placeholder="نام محصول" />
                     </div>
-                    <div>
-                        <input id="txtEmail" type="text" placeholder="آدرس ایمیل" />
+                    <div className="form-group">
+                        <input className="form-control" id="txtPrice" type="text" placeholder="قیمت" />
                     </div>
-                    <div>
-                        <input id="txtSubject" type="text" placeholder="موضوع" />
+                    <div className="form-group">
+                        <textarea className="form-control" id="txtDescription" placeholder="توضیحات" />
                     </div>
+                   
                     <div>
-                        <textarea id="txtText" placeholder="متن پیام" />
-                    </div>
-                    <div>
-                        <button type="submit">ارسال</button>
+                        <button className="btn btn-info" type="submit">افزدون محصول جدید</button>
                     </div>
                     <div id="divStatus">
 
@@ -74,4 +70,4 @@ class Contact extends React.Component {
     }
 }
 
-export default Contact
+export default Product
