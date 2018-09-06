@@ -1,0 +1,13 @@
+@font-face {
+    font-family: 'vazir';
+    src: url('../fonts/vazir/Vazir-Medium.eot'); /* IE9 Compat Modes */
+    src: url('../fonts/vazir/Vazir-Medium.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('../fonts/vazir/Vazir-Medium.woff2') format('woff2'), /* Super Modern Browsers */
+         url('../fonts/vazir/Vazir-Medium.woff') format('woff'), /* Pretty Modern Browsers */
+         url('../fonts/vazir/Vazir-Medium.ttf')  format('truetype'), /* Safari, Android, iOS */
+         url('../fonts/vazir/Vazir-Medium.svg#svgFontName') format('svg'); /* Legacy iOS */
+  }
+  body {
+    font-family: 'vazir', sans-serif;
+  }
+  

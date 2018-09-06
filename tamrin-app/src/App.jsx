@@ -26,7 +26,7 @@ class App extends Component {
           </header>
           <div className="container">
             <div className="row">
-              <div className="col-md-4 col-md-offset-2">
+              <div className="col-md-4 col-md-offset-4">
                 <Switch>
                   <Route exact path="/" component={Products} />
                   <Route exact path="/Add" component={Product} />
