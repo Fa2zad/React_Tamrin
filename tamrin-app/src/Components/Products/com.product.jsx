@@ -1,9 +1,7 @@
 import React from "react";
 import "./style.products.css";
-import { findDOMNode } from "react-dom";
-// import $ from "./../../jquery.min.js";
-// window.jQuery = $;
-// window.$ = $;
+
+import $ from 'jquery';
 
 
 class Product extends React.Component {
@@ -16,19 +14,28 @@ class Product extends React.Component {
             price: document.getElementById("txtPrice").value,
             description: document.getElementById("txtDescription").value,
         };
-        // $("div").css("border", "1px solid red");
+        $("div").css("border", "1px solid red");
 
-        // handleToggle = () => {
-        //     const el = findDOMNode(this.refs.toggle);
-        //     alert($(el).slideToggle());
-        //     };
+        // $(document).ready(function(){
+            // $('#addForm').validetta({
+            //     realTime: true,
+            //     display : 'inline',
+            //     errorTemplateClass : 'validetta-inline',
+            //     onValid : function( event ) {
+            //         event.preventDefault();
+            //         alert('Success');
+            //     }
+            // });
+        // })
+            
+        
 
-        if (product.name === "") {
-            document.getElementById("txtName").style.cssText = "border-color: red";
-            isValidate = false;
-            document.getElementById("divStatus").innerHTML =
-             "<p class=\"alert alert-danger\">لطفا نام محصول را موارد کنید.</p>";
-        }
+        // if (product.name === "") {
+        //     document.getElementById("txtName").style.cssText = "border-color: red";
+        //     isValidate = false;
+        //     document.getElementById("divStatus").innerHTML =
+        //      "<p class=\"alert alert-danger\">لطفا نام محصول را موارد کنید.</p>";
+        // }
 
         if (isValidate) {
             var xhr = new XMLHttpRequest();
@@ -70,10 +77,12 @@ class Product extends React.Component {
         return (
             <div className="product__container">
 
-                <form onSubmit={this.handleSubmit}>
+                <form id="addForm" onSubmit={this.handleSubmit}>
                    
                     <div className="form-group">
-                        <input className="form-control" id="txtName" type="text" placeholder="نام محصول" onBlur={this.handleBlur()} />
+                        <input className="form-control" id="txtName" type="text" placeholder="نام محصول"
+                         onBlur={this.handleBlur()} data-validetta="required"
+                         data-vd-message-required="Please enter full name!" />
                     </div>
 
                     <div className="form-group">
