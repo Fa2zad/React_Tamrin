@@ -29,6 +29,7 @@ class App extends Component {
               <div className="col-md-4 col-md-offset-4">
                 <Switch>
                   <Route exact path="/" component={Products} />
+                  <Route exact path="/:message" component={Products} />
                   <Route exact path="/Add" component={Product} />
                   <Route exact path="/Details" component={Details} />
                   <Route component={NotFound} />
