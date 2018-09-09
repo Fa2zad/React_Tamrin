@@ -8,3 +8,6 @@
   text-align: center;
   padding: 23%;
   display: none; }
+
+.product-add__container .validetta-bubble, .product-add__container .validetta-inline {
+  font-family: 'vazir'; }
