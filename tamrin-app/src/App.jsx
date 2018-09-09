@@ -18,9 +18,9 @@ class App extends Component {
             <img src={logo} className="App-logo" alt="logo" />
             <nav className="navbar">
               <ul className="nav navbar-nav">
-                <li><Link to="/">محصولات</Link></li>
-                <li><Link to="/Add">محصول جدید</Link></li>
-                <li><Link to="/Details">جزئیات محصول</Link></li>
+                <li><Link to="/Products" >محصولات</Link></li>
+                <li><Link to="/Add" >محصول جدید</Link></li>
+                <li><Link to="/Details" >جزئیات محصول</Link></li>
               </ul>
             </nav>
           </header>
@@ -28,8 +28,8 @@ class App extends Component {
             <div className="row">
               <div className="col-md-4 col-md-offset-4">
                 <Switch>
-                  <Route exact path="/" component={Products} />
-                  <Route exact path="/:message" component={Products} />
+                  <Route exact path="/Products" component={Products} />
+                  <Route exact path="/Products/:message" component={Products} />
                   <Route exact path="/Add" component={Product} />
                   <Route exact path="/Details" component={Details} />
                   <Route component={NotFound} />

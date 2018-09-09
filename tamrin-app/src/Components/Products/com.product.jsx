@@ -1,6 +1,5 @@
 import React from "react";
 import "./style.products.css";
-import { Redirect } from 'react-router-dom'
 
 class Product extends React.Component {
     constructor(props) {
@@ -34,72 +33,29 @@ class Product extends React.Component {
                             name:  Product.name,
                             price: Product.price,
                             description: Product.description
-                        }
+                        },
 
-                        // beforeSend: function () {
-                        //     console.log('Started request !');
-                        // },
+                        beforeSend: function () {
+                            // console.log('Started request !');
+                            $('.product-waiting').css("display","block")
+                        },
 
                     })
                     .done(function (data) {
                         alert('Response data : ' + data.response);
-                        this.props.history.push('/#success');
+                        location.hash = "/Products/success";
+
                     })
                     .fail(function (jqXHR, textStatus) {
                         console.log(textStatus + ':' + jqXHR.status + ' : ' + jqXHR.statusText);
-                        this.props.history.push('/#failed');
+                        location.hash = "/Products/failed";
+
                     })
                     // .always(function (result) {
                     //     console.log('Request done !!');
                     // });
             }
         });
-
-
-
-
-        // $('#addForm').validetta({
-        //     realTime: true,
-        //     display: 'inline',
-        //     errorTemplateClass: 'validetta-inline',
-        //     onValid: () => {
-        //         // event.preventDefault();
-        //         alert('Success');
-        //         const Product = {
-        //             name: document.getElementById("txtName").value,
-        //             price: document.getElementById("txtPrice").value,
-        //             description: document.getElementById("txtDescription").value,
-        //         };
-        //         alert(AddRequest(Product));
-        //         if (AddRequest(Product)) {
-        //             this.props.history.push('/');
-        //         }
-        //     }
-        // });
-
-        
-        // const AddRequest = (product) => {
-        //     var xhr = new XMLHttpRequest();
-        //     xhr.open("POST", 'http://localhost:58731/Product.ashx', true);
-
-        //     //Send the proper header information along with the request
-        //     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-        //     xhr.onreadystatechange = function () {//Call a function when the state changes.
-        //         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-        //             // Request finished. Do processing here.
-        //             document.getElementById("divStatus").innerHTML =
-        //                 "<p class=\"alert alert-success\" >" + this.response + "</p>";
-        //             return this.status;
-        //         }
-        //     }
-        //     xhr.send(
-        //         "action=add&name=" + product.name
-        //         + "&price=" + product.price
-        //         + "&description=" + product.description
-        //     );
-        // }
-
 
     }
 
@@ -110,7 +66,7 @@ class Product extends React.Component {
 
     render() {
         return (
-            <div className="product__container">
+            <div className="product-add__container">
 
                 <form id="addForm">
 
@@ -120,26 +76,26 @@ class Product extends React.Component {
                     </div>
 
                     <div className="form-group">
-                        <input className="form-control" id="txtPrice" type="text" placeholder="قیمت"
-                            data-validetta="required" />
+                        <input className="form-control" id="txtPrice" type="number" placeholder="قیمت"
+                            data-validetta="required,number" />
                     </div>
 
                     <div className="form-group">
-                        <textarea className="form-control" id="txtDescription" placeholder="توضیحات" />
+                        <textarea className="form-control" id="txtDescription" placeholder="توضیحات"
+                         data-validetta="required"  />
                     </div>
 
                     <div>
                         <button className="btn btn-info" type="submit">افزدون محصول جدید</button>
                     </div>
-
-                    <div id="divStatus" className="divStatus">
-                    </div>
-
-
                 </form>
+                <div className="product-waiting">
+                    در حال ارسال اطلاعات ...<br/>
+                    <img src="/assets/images/loading.gif" alt=""/>
+                </div>
             </div>
         );
     }
 }
 
-export default Product
+export default (Product)

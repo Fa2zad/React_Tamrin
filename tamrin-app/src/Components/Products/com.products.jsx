@@ -4,33 +4,36 @@ import "./style.products.css";
 class Products extends React.Component {
 
     ShowMessage = () => {
-        return (
-            <div class='alert alert-success'>محصول جدید با موفقیت اضافه شد</div>
-        )
+
+        let queryStringMessage  = this.props.match.params.message;
+
+        if (queryStringMessage != null) {
+
+            if (queryStringMessage == "success") {
+                return (
+                    <div className='alert alert-success'>محصول جدید با موفقیت اضافه شد</div>
+                )
+            }
+            else if (queryStringMessage == "failed") {
+                return (
+                    <div className='alert alert-danger'>محصول جدید اضافه نشد! لطفا مجددا تلاش کنید</div>
+                )
+            }
+        }
+
+
+        
     }
 
     constructor(props) {
         super(props);
-        
         document.title = "محصولات";
-        var message;
-        let queryStringMessage  = this.props.match.params.message;
-
-        if (queryStringMessage != null) {
-            // if (queryStringMessage == "success") {
-                message = this.ShowMessage();
-            // }
-            // else (message == "failed") {
-            //     message = this.ShowMessage();
-            // }
-        }
-        // console.log(this.props.match.params.message);
     }
 
     render() {
         return (
             <div>
-                {this.message}
+                {this.ShowMessage()}
                 محصولات <br />
                 محصولات <br />
                 محصولات <br />
