@@ -26,15 +26,13 @@ class App extends Component {
           </header>
           <div className="container">
             <div className="row">
-              <div className="col-md-4 col-md-offset-4">
-                <Switch>
-                  <Route exact path="/Products" component={Products} />
-                  <Route exact path="/Products/:message" component={Products} />
-                  <Route exact path="/Add" component={Product} />
-                  <Route exact path="/Details" component={Details} />
-                  <Route component={NotFound} />
-                </Switch>
-              </div>
+              <Switch>
+                <Route exact path="/Products" component={Products} />
+                <Route exact path="/Products/:message" component={Products} />
+                <Route exact path="/Add" component={Product} />
+                <Route exact path="/Details" component={Details} />
+                <Route component={NotFound} />
+              </Switch>
             </div>
           </div>
         </div>

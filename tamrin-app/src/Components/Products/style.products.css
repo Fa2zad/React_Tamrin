@@ -11,3 +11,21 @@
 
 .product-add__container .validetta-bubble, .product-add__container .validetta-inline {
   font-family: 'vazir'; }
+
+.products__container .pages {
+  list-style: none;
+  text-align: right;
+  margin: 10px; }
+  .products__container .pages li {
+    display: inline-block;
+    margin: 1px; }
+    .products__container .pages li a {
+      padding: 7px 12px 3px 12px;
+      text-decoration: none;
+      border-radius: 50%; }
+      .products__container .pages li a:hover {
+        background: lightgray;
+        text-decoration: none; }
+      .products__container .pages li a.active {
+        background: steelblue;
+        color: white; }

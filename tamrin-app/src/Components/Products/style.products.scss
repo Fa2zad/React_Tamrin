@@ -14,3 +14,33 @@
         font-family: 'vazir';
     }
 }
+.products__container{
+    .pages{
+        list-style: none;
+        text-align: right;
+        margin: 10px;
+        li{
+            display: inline-block;
+            margin: 1px;
+            a{
+                padding: 7px 12px 3px 12px;
+                // border: 1px solid lightgray;
+                // background: lightgray;
+
+                text-decoration: none;
+                border-radius: 50%;
+
+                &:hover{
+                    background: lightgray;
+                    text-decoration: none;
+                }
+                &.active{
+                    background: steelblue;
+                    color: white;
+                }
+            }
+            
+            
+        }
+    }
+}
