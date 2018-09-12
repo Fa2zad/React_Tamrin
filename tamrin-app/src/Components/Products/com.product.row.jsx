@@ -17,7 +17,7 @@ export default class Row extends React.Component {
                    {this.props.product.Description.substring(0, 30) + "..."}
                </td>
                <td>
-                   <button className="btn btn-info" data-id={this.props.product.ID}>حذف</button>
+                   <button className="btn btn-info btnShownDeleteModal" data-id={this.props.product.ID} >حذف</button>
                </td>
             </tr>
         );

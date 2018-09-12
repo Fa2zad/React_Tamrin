@@ -75,38 +75,12 @@ class Products extends React.Component {
             </tr>
         )
 
-        // let rows = "";
-        // for (let i = 0; i < productsList.length; i++) {
-        //     rows += "<tr>";
-        //     rows += "<td>" + (size * (page - 1) + i + 1) + "</td>";
-        //     rows += "<td>" + productsList[i].Name + "</td>";
-        //     rows += "<td>" + productsList[i].Price + "</td>";
-        //     rows += "<td>" + productsList[i].Description.substring(0, 30) + "...</td>";
-        //     rows += "<td><a class=\"btn btn-info btnShownDeleteModal\" data-id=\"" + productsList[i].ID + "\">حذف</a></td>";
-        //     rows += "</tr>"
-        // }
-        // let pagesCount = Math.ceil(productsCount / size);
-        // rows += "<tr><td colspan=\"5\"><ul class=\"pages\">";
-        // for (let i = 1; i <= pagesCount; i++) {
-        //     rows += "<li>";
-        //     if (i == page) {
-        //         rows += "<a class=\"active\">";
-        //     } else {
-        //         rows += "<a href=\"#Products/" + i + "\">";
-        //     }
-        //     rows += i;
-        //     rows += "</a>";
-        //     rows += "</li>";
-        // }
-        // rows += "</ul></td></tr>"
-        // return (rows);
-
     }
 
     ShowProducts = (page = 1, size = 2) => {
-        if ($.isNumeric(this.props.match.params.message)) {
-            page = this.props.match.params.message;
-        }
+        // if ($.isNumeric(this.props.match.params.message)) {
+        //     page = this.props.match.params.message;
+        // }
         $.ajax({
             url: 'http://localhost:58731/Product.ashx',
             type: "GET",
@@ -120,18 +94,14 @@ class Products extends React.Component {
             // beforeSend: function () {
             // },
         })
-            // $.getJSON('http://localhost:58731/Product.ashx',{action: "list", page: page, size: size} )
             .done((data) => {
                 var respondedData = $.parseJSON(data);
-                // var respondedData = data;
                 $.ajax({
                     url: 'http://localhost:58731/Product.ashx',
                     type: "GET",
                     cache: false,
                     data: { action: "count" }
                 }).done((countData) => {
-                    // $("tbody").html(this.CreateTableRow(respondedData, countData, page, size));
-                    // this.CreateTableRow(respondedData, countData, page, size);
 
                     this.setState({
                         IsLoaded: true,
@@ -151,23 +121,28 @@ class Products extends React.Component {
 
     }
 
-    // OpenDeleteModal = () => {
-    //     // $(".btnShownDeleteModal").on("click", () => {
-    //         alert("aaa");
+    OpenDeleteModal = () => {
+        $(".btnShownDeleteModal").on("click", () => {
+            // alert("aaa");
 
-    //         // $("#productDeleteModal").modal("show");
-    //     // });
-    //         // $("#hfUserIDDelete").val($(this).data("id"));
+            $("#productDeleteModal").modal("show");
+            // $("#hfProductIDDelete").val($(this.target.data("id")));
+            console.log(this.target);
+        });
+            // $("#hfUserIDDelete").val($(this).data("id"));
 
-    // }
+    }
 
     componentDidMount() {
         this.ShowProducts();
         document.title = "محصولات";
     }
+    
+    componentWillReceiveProps(w) {
+        this.ShowProducts(w.match.params.message, 2);
+    }
     componentDidUpdate() {
-        this.ShowProducts();
-        // this.state.page = 
+        this.OpenDeleteModal();
     }
 
     render() {
@@ -207,6 +182,7 @@ class Products extends React.Component {
                             <div className="modal-body">
                                 آیا مطمئن به حذف محصول هستید؟
                             {/* <asp:HiddenField ID="hfCategoryIDDelete" runat="server" ClientIDMode="Static" /> */}
+                            <input id="hfProductIDDelete" type="hidden"/>
                             </div>
                             <div className="modal-footer">
                                 <button id="btnProductDelete" className="btn btn-danger" >حذف</button>
