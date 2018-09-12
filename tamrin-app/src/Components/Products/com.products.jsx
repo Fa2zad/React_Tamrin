@@ -14,20 +14,36 @@ class Products extends React.Component {
 
     ShowList = () => {
 
-            return this.state.products.map((item, i) => {
-                return (
-                    <Row product={item} key={i} place={i} />
-                );
-            })
+        return this.state.products.map((item, i) => {
+            return (
+                <Row product={item} key={i} place={i} page={this.state.page} countPerPage={this.state.countPerPage} />
+            );
+        })
+    }
 
+    ShowPagination = () => {
+        let pagesCount = Math.ceil(this.state.countTotal / this.state.countPerPage);
+        var pagesArray = [];
+        for (var i = 1; i <= pagesCount; i++) {
+            pagesArray.push(<li key={i}>
+                {i == this.state.page ? (
+                    <a className="active">{i}</a>
+                ) : (
+                    <a href={"./#Products/" + i}>{i}</a>
+                )}
+                </li>
+            );
+        }
 
-        // this.state.WasteTypes.map((type, i) => {
-        //     return (
-        //         <option key={i} value={type.ID}>{type.Title}</option>
-        //     );
-        // })
-
-        // return <Row />
+        return (
+            <tr>
+                <th colSpan="5">
+                    <ul className="pages">
+                        {pagesArray}
+                    </ul>
+                </th>
+            </tr>
+        );
     }
 
     ShowMessage = () => {
@@ -149,7 +165,10 @@ class Products extends React.Component {
         this.ShowProducts();
         document.title = "محصولات";
     }
-
+    componentDidUpdate() {
+        this.ShowProducts();
+        // this.state.page = 
+    }
 
     render() {
         let content = <p>ladfhasdfa</p>
@@ -172,6 +191,9 @@ class Products extends React.Component {
                         {this.ShowList()}
 
                     </tbody>
+                    <tfoot>
+                        {this.ShowPagination()}
+                    </tfoot>
                 </table>
 
                 {/* delete modal */}
