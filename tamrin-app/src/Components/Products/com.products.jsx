@@ -63,24 +63,11 @@ class Products extends React.Component {
         }
     }
 
-    CreateTableRow = (productsList, productsCount, page, size) => {
-
-        return (
-            <tr>
-                <td>{(size * (page - 1) + 0 + 1)}</td>
-                <td>{productsList[0].Name}</td>
-                <td>{productsList[0].Price}</td>
-                <td>{productsList[0].Description}</td>
-                <td><a className="btn btn-info btnShownDeleteModal" data-id={productsList[0].ID} >حذف</a></td>
-            </tr>
-        )
-
-    }
 
     ShowProducts = (page = 1, size = 2) => {
-        // if ($.isNumeric(this.props.match.params.message)) {
-        //     page = this.props.match.params.message;
-        // }
+        if (isNaN(page)) {
+            page = 1;
+        }
         $.ajax({
             url: 'http://localhost:58731/Product.ashx',
             type: "GET",
@@ -122,14 +109,14 @@ class Products extends React.Component {
     }
 
     OpenDeleteModal = () => {
-        $(".btnShownDeleteModal").on("click", () => {
-            // alert("aaa");
-
-            $("#productDeleteModal").modal("show");
-            // $("#hfProductIDDelete").val($(this.target.data("id")));
-            console.log(this.target);
-        });
-            // $("#hfUserIDDelete").val($(this).data("id"));
+        return(
+            $(".btnShownDeleteModal").on("click", (event) => {
+    
+                $("#productDeleteModal").modal("show");
+                $("#hfProductIDDelete").val($(event.target).attr("data-id"));
+            })
+        );
+        
 
     }
 
@@ -139,14 +126,14 @@ class Products extends React.Component {
     }
     
     componentWillReceiveProps(w) {
-        this.ShowProducts(w.match.params.message, 2);
+        this.ShowProducts(w.match.params.message);
     }
     componentDidUpdate() {
         this.OpenDeleteModal();
     }
 
     render() {
-        let content = <p>ladfhasdfa</p>
+        let content;
 
         content = this.state.IsLoaded &&
             <div className="products__container">
@@ -162,9 +149,7 @@ class Products extends React.Component {
                         </tr>
                     </thead>
                     <tbody>
-
                         {this.ShowList()}
-
                     </tbody>
                     <tfoot>
                         {this.ShowPagination()}
