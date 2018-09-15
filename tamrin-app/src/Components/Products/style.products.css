@@ -29,3 +29,6 @@
       .products__container .pages li a.active {
         background: steelblue;
         color: white; }
+
+.products__container #DeleteModalWaitingImage {
+  display: none; }

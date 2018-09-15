@@ -4,6 +4,7 @@ import Row from "./com.product.row";
 
 class Products extends React.Component {
 
+    // State
     state = {
         IsLoaded: false,
         products: [],
@@ -12,40 +13,7 @@ class Products extends React.Component {
         countTotal: []
     }
 
-    ShowList = () => {
-
-        return this.state.products.map((item, i) => {
-            return (
-                <Row product={item} key={i} place={i} page={this.state.page} countPerPage={this.state.countPerPage} />
-            );
-        })
-    }
-
-    ShowPagination = () => {
-        let pagesCount = Math.ceil(this.state.countTotal / this.state.countPerPage);
-        var pagesArray = [];
-        for (var i = 1; i <= pagesCount; i++) {
-            pagesArray.push(<li key={i}>
-                {i == this.state.page ? (
-                    <a className="active">{i}</a>
-                ) : (
-                    <a href={"./#Products/" + i}>{i}</a>
-                )}
-                </li>
-            );
-        }
-
-        return (
-            <tr>
-                <th colSpan="5">
-                    <ul className="pages">
-                        {pagesArray}
-                    </ul>
-                </th>
-            </tr>
-        );
-    }
-
+    // Show result message of add prouduct component
     ShowMessage = () => {
         let queryStringMessage = this.props.match.params.message;
 
@@ -63,7 +31,43 @@ class Products extends React.Component {
         }
     }
 
+    //#region CREATE_GRIDVIEW
+    // Show list - mapping row component
+    ShowList = () => {
+        return this.state.products.map((item, i) => {
+            return (
+                <Row product={item} key={i} place={i} page={this.state.page} countPerPage={this.state.countPerPage} />
+            );
+        })
+    }
 
+    // Show pagination
+    ShowPagination = () => {
+        let pagesCount = Math.ceil(this.state.countTotal / this.state.countPerPage);
+        var pagesArray = [];
+        for (var i = 1; i <= pagesCount; i++) {
+            pagesArray.push(<li key={i}>
+                {i == this.state.page ? (
+                    <a className="active">{i}</a>
+                ) : (
+                        <a href={"./#Products/" + i}>{i}</a>
+                    )}
+            </li>
+            );
+        }
+
+        return (
+            <tr>
+                <th colSpan="5">
+                    <ul className="pages">
+                        {pagesArray}
+                    </ul>
+                </th>
+            </tr>
+        );
+    }
+
+    // show products - Ajax request
     ShowProducts = (page = 1, size = 2) => {
         if (isNaN(page)) {
             page = 1;
@@ -108,26 +112,74 @@ class Products extends React.Component {
 
     }
 
+    //#endregion
+
+    //#region DELETE_PROCESS
+
+    // Open delete modal
     OpenDeleteModal = () => {
-        return(
+        return (
             $(".btnShownDeleteModal").on("click", (event) => {
-    
+                $("#btnProductDelete").removeClass("disabled");
+                $("#DeleteModalWaitingImage").hide();
                 $("#productDeleteModal").modal("show");
                 $("#hfProductIDDelete").val($(event.target).attr("data-id"));
             })
         );
-        
-
     }
+
+    // Delete product - Ajax request
+    DeleteProduct = () => {
+
+        $.ajax({
+            url: 'http://localhost:58731/Product.ashx',
+            type: "GET",
+            cache: false,
+            data: {
+                action: "delete",
+                ID: $("#hfProductIDDelete").val()
+            },
+            beforeSend: function () {
+                $("#btnProductDelete").addClass("disabled");
+                $("#DeleteModalWaitingImage").show("slow");
+            },
+        })
+            .done((data) => {
+                if (data) {
+                    this.ShowProducts();
+                    $('#productDeleteModal').modal('toggle');
+                    location.hash = "/Products/1";
+                } else {
+                    console.log(data);
+                    $("#btnProductDelete").removeClass("disabled");
+                    $("#DeleteModalWaitingImage").hide("slow");
+                    alert("حذف محصول با موفقیت انجام نشد، لطفا محددا تلاش کنید!");
+                }
+            })
+            .fail(function (jqXHR, textStatus) {
+                console.log(textStatus + ':' + jqXHR.status + ' : ' + jqXHR.statusText);
+                $("#btnProductDelete").removeClass("disabled");
+                $("#DeleteModalWaitingImage").hide("slow");
+                alert("حذف محصول با موفقیت انجام نشد، لطفا محددا تلاش کنید!");
+            });
+        // .always(function (result) {
+        //     console.log('Request done !!');
+        // });
+    }
+
+    //#endregion
+
+    //#region LIFE_CYCLE_METHODS
 
     componentDidMount() {
-        this.ShowProducts();
+        this.ShowProducts(this.props.match.params.message);
         document.title = "محصولات";
     }
-    
+
     componentWillReceiveProps(w) {
         this.ShowProducts(w.match.params.message);
     }
+
     componentDidUpdate() {
         this.OpenDeleteModal();
     }
@@ -166,24 +218,29 @@ class Products extends React.Component {
                             </div>
                             <div className="modal-body">
                                 آیا مطمئن به حذف محصول هستید؟
-                            {/* <asp:HiddenField ID="hfCategoryIDDelete" runat="server" ClientIDMode="Static" /> */}
-                            <input id="hfProductIDDelete" type="hidden"/>
+                            <input id="hfProductIDDelete" type="hidden" />
                             </div>
                             <div className="modal-footer">
-                                <button id="btnProductDelete" className="btn btn-danger" >حذف</button>
+                                <img id="DeleteModalWaitingImage" src="./assets/images/loading.gif" />
+                                <button id="btnProductDelete" className="btn btn-danger" onClick={this.DeleteProduct}>حذف</button>
                                 <button className="btn btn-info" data-dismiss="modal" aria-hidden="true">انصراف</button>
                             </div>
                         </div>
                     </div>
                 </div>
+
+
             </div>
 
         return (
             <div>
                 {content}
-            </div>
+            </div >
         );
     }
+
+    //#endregion
+
 }
 
 export default Products
