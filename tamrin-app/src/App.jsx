@@ -18,9 +18,17 @@ class App extends Component {
             <img src={logo} className="App-logo" alt="logo" />
             <nav className="navbar">
               <ul className="nav navbar-nav">
-                <li><Link to="/Products" >محصولات</Link></li>
-                <li><Link to="/Add" >محصول جدید</Link></li>
-                <li><Link to="/Details" >جزئیات محصول</Link></li>
+                <li className="dropdown">
+                  <a className="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                    محصولات
+                    <span className="caret"></span>
+                  </a>
+                  <ul className="dropdown-menu">
+                    <li><Link to="/Products" >همه محصولات</Link></li>
+                    <li><Link to="/Add" >محصول جدید</Link></li>
+                  </ul>
+                </li>
+                {/* <li><Link to="/Details" >جزئیات محصول</Link></li> */}
               </ul>
             </nav>
           </header>
@@ -30,7 +38,7 @@ class App extends Component {
                 <Route exact path="/Products" component={Products} />
                 <Route exact path="/Products/:message" component={Products} />
                 <Route exact path="/Add" component={Product} />
-                <Route exact path="/Details" component={Details} />
+                <Route exact path="/Details/:ID" component={Details} />
                 <Route component={NotFound} />
               </Switch>
             </div>

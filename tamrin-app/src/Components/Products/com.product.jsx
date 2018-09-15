@@ -85,7 +85,7 @@ class Product extends React.Component {
                         </div>
 
                         <div>
-                            <button className="btn btn-info" type="submit">افزدون محصول جدید</button>
+                            <button className="btn btn-success" type="submit">افزدون محصول جدید</button>
                         </div>
                     </form>
                     <div className="product-waiting">
