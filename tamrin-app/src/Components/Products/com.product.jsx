@@ -18,9 +18,9 @@ class Product extends React.Component {
                 // this -> form object
                 // this.form is form element
                 const Product = {
-                    name: document.getElementById("txtName").value,
-                    price: document.getElementById("txtPrice").value,
-                    description: document.getElementById("txtDescription").value,
+                    name: this.form.txtName.value,
+                    price: this.form.txtPrice.value,
+                    description: this.form.txtDescription.value
                 };
                 $.ajax({
                     url: 'http://localhost:58731/Product.ashx',

@@ -18,15 +18,25 @@ class Products extends React.Component {
         let queryStringMessage = this.props.match.params.message;
 
         if (queryStringMessage != null) {
-            if (queryStringMessage == "success") {
-                return (
-                    <div className='alert alert-success'>محصول جدید با موفقیت اضافه شد</div>
-                )
-            }
-            else if (queryStringMessage == "failed") {
-                return (
-                    <div className='alert alert-danger'>محصول جدید اضافه نشد! لطفا دوباره تلاش کنید</div>
-                )
+            switch (queryStringMessage) {
+                case "success":
+                    return (
+                        <div className='alert alert-success'>محصول جدید با موفقیت اضافه شد</div>
+                    );
+                case "failed":
+                    return (
+                        <div className='alert alert-danger'>محصول جدید اضافه نشد! لطفا دوباره تلاش کنید</div>
+                    );
+                case "editsuccess":
+                    return (
+                        <div className='alert alert-success'>محصول با موفقیت ویرایش شد</div>
+                    );
+                case "editfailed":
+                    return (
+                        <div className='alert alert-danger'>محصول ویرایش نشد! لطفا دوباره تلاش کنید</div>
+                    );
+                default:
+                    break;
             }
         }
     }
@@ -68,7 +78,7 @@ class Products extends React.Component {
     }
 
     // show products - Ajax request
-    ShowProducts = (page = 1, size = 2) => {
+    ShowProducts = (page = 1, size = 3) => {
         if (isNaN(page)) {
             page = 1;
         }
